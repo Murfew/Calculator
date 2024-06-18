@@ -27,6 +27,16 @@ function operate(a, b, operator) {
 
         case "/":
             divide(a, b)
-            
+
     }
+}
+
+const displayButtons = document.getElementsByClassName("display")
+const equation = document.getElementById("equation")
+
+for (let i = 0; i < displayButtons.length; i++) {
+    displayButtons[i].addEventListener("click", () => {
+        let oldEquation = equation.value
+        equation.value = oldEquation + displayButtons[i].textContent
+    })
 }
