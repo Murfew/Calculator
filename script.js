@@ -31,12 +31,23 @@ function operate(a, b, operator) {
     }
 }
 
-const displayButtons = document.getElementsByClassName("display")
+const numberButtons = document.getElementsByClassName("number")
+const operationButtons = document.getElementsByClassName("operation")
 const equation = document.getElementById("equation")
+const equal = document.getElementById("compute")
 
-for (let i = 0; i < displayButtons.length; i++) {
-    displayButtons[i].addEventListener("click", () => {
+for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener("click", () => {
         let oldEquation = equation.value
-        equation.value = oldEquation + displayButtons[i].textContent
+        equation.value = oldEquation + numberButtons[i].textContent
     })
 }
+
+for (let i = 0; i < operationButtons.length; i++) {
+    operationButtons[i].addEventListener("click", () => {
+        let oldEquation = equation.value
+        equation.value = oldEquation + " " + operationButtons[i].textContent + " "
+    })
+}
+
+
