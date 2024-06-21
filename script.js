@@ -42,7 +42,7 @@ const operationButtons = document.getElementsByClassName("operation")
 const equation = document.getElementById("equation")
 const equal = document.getElementById("compute")
 const clear = document.getElementById("clear")
-s
+
 for (let i = 0; i < numberButtons.length; i++) {
     numberButtons[i].addEventListener("click", () => {
         let oldEquation = equation.value
@@ -71,9 +71,7 @@ clear.addEventListener("click", () => {
 
 equal.addEventListener("click", () => {
     //TODO Add order of operations
-    //TODO Check division by 0
     //TODO Check if equation is valid
-    //TODO Round decimal answers
 
 
     let fullEquation = equation.value
@@ -81,6 +79,12 @@ equal.addEventListener("click", () => {
     let term1 = equationElements[0]
     let term2 = equationElements[2]
     let operator = equationElements[1]
+
+    if (operator == "/" && term2 == 0) {
+        equation.value = ""
+        alert("You can't divide by zero!")
+        return
+    }
 
     equationElements.splice(equationElements.indexOf(operator), 1)
     equationElements.splice(equationElements.indexOf(term2), 1)
@@ -90,7 +94,7 @@ equal.addEventListener("click", () => {
     console.log(term1, term2, operator)
     console.log(operate(Number(term1), Number(term2), operator))
 
-    equationElements.unshift(operate(Number(term1), Number(term2), operator))
+    equationElements.unshift(+operate(Number(term1), Number(term2), operator).toFixed(8))
 
     equation.value = equationElements.join(" ")
 
