@@ -17,29 +17,40 @@ function divide(a, b) {
 function operate(a, b, operator) {
     switch (operator) {
         case "+":
-            add(a, b)
+            return add(a, b)
 
         case "-":
-            subtract(a, b)
+            return subtract(a, b)
 
         case "*":
-            multiply(a, b)
+            return multiply(a, b)
 
         case "/":
-            divide(a, b)
+            return divide(a, b)
 
     }
 }
+
+
+//TODO Add decimal functionality
+//TODO Add CSS styles to look better
+//TODO Add backspace button
+//TODO Add keyboard support
 
 const numberButtons = document.getElementsByClassName("number")
 const operationButtons = document.getElementsByClassName("operation")
 const equation = document.getElementById("equation")
 const equal = document.getElementById("compute")
-
+const clear = document.getElementById("clear")
+s
 for (let i = 0; i < numberButtons.length; i++) {
     numberButtons[i].addEventListener("click", () => {
         let oldEquation = equation.value
         equation.value = oldEquation + numberButtons[i].textContent
+
+        for (let j = 0; j < operationButtons.length; j++) {
+            operationButtons[j].disabled = false
+        }
     })
 }
 
@@ -47,7 +58,41 @@ for (let i = 0; i < operationButtons.length; i++) {
     operationButtons[i].addEventListener("click", () => {
         let oldEquation = equation.value
         equation.value = oldEquation + " " + operationButtons[i].textContent + " "
+
+        for (let j = 0; j < operationButtons.length; j++) {
+            operationButtons[j].disabled = true
+        }
     })
 }
 
+clear.addEventListener("click", () => {
+    equation.value = ""
+})
+
+equal.addEventListener("click", () => {
+    //TODO Add order of operations
+    //TODO Check division by 0
+    //TODO Check if equation is valid
+    //TODO Round decimal answers
+
+
+    let fullEquation = equation.value
+    let equationElements = fullEquation.split(" ")
+    let term1 = equationElements[0]
+    let term2 = equationElements[2]
+    let operator = equationElements[1]
+
+    equationElements.splice(equationElements.indexOf(operator), 1)
+    equationElements.splice(equationElements.indexOf(term2), 1)
+    equationElements.splice(equationElements.indexOf(term1), 1)
+
+    console.log(equationElements)
+    console.log(term1, term2, operator)
+    console.log(operate(Number(term1), Number(term2), operator))
+
+    equationElements.unshift(operate(Number(term1), Number(term2), operator))
+
+    equation.value = equationElements.join(" ")
+
+})
 
