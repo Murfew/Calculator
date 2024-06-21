@@ -32,11 +32,6 @@ function operate(a, b, operator) {
 }
 
 
-//TODO Add decimal functionality
-//TODO Add CSS styles to look better
-//TODO Add backspace button
-//TODO Add keyboard support
-
 const numberButtons = document.getElementsByClassName("number")
 const operationButtons = document.getElementsByClassName("operation")
 const equation = document.getElementById("equation")
@@ -70,10 +65,6 @@ clear.addEventListener("click", () => {
 })
 
 equal.addEventListener("click", () => {
-    //TODO Add order of operations
-    //TODO Check if equation is valid
-
-
     let fullEquation = equation.value
     let equationElements = fullEquation.split(" ")
     let term1 = equationElements[0]
